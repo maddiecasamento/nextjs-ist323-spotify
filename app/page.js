@@ -1,7 +1,7 @@
 import Heading from "../components/Heading";
 import Paragraph from "../components/Paragraph";
 
-const Home = () => {
+const Homepage = () => {
   return <main>
     <Heading level={1} marginLeft={6}>
       Spotify</Heading>
@@ -22,4 +22,4 @@ const Home = () => {
     </Paragraph>
   </main>;
 };
-export default Home;
+export default Homepage;

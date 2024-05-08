@@ -1,4 +1,4 @@
-import "../sass/global.scss";
+import "../sass/global.scss"
 
 export const metadata = {
   title: "IST 363 Spotify",
