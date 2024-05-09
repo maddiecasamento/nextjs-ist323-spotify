@@ -1,25 +1,37 @@
-import Heading from "../components/Heading";
-import Paragraph from "../components/Paragraph";
+"use client";
 
-const Homepage = () => {
-  return <main>
-    <Heading level={1} marginLeft={6}>
-      Spotify</Heading>
-    <Heading level={2} marginBottom={4}>
-      Artists</Heading>
-    <Heading level={3}>Songs</Heading>
-    <Paragraph intro marginBottom={12}>
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-    </Paragraph>
-    <Paragraph marginBottom={1}>
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-    </Paragraph>
-    <Paragraph marginBottom={5}>
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-    </Paragraph>
-    <Paragraph caption>
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-    </Paragraph>
-  </main>;
-};
-export default Homepage;
+import { useEffect, useState } from "react";
+
+function HomePage() {
+ const [artists, setArtists] = useState([]);
+ const [isLoading, setIsLoading] = useState(true);
+ const [error, setError] = useState(null);
+
+ useEffect(() => {
+  try {
+   fetch("/api/artists")
+    .then((res) => res.json())
+    .then((data) => {
+     setArtists(data.artists);
+     setIsLoading(false);
+    });
+  } catch (error) {
+   setError(error);
+  }
+ }, []);
+
+ if (isLoading) return <p>Loading...</p>;
+ if (error) return <p>Error loading artists</p>;
+
+ console.log({ artists });
+
+ return (
+  <div>
+    {artists.map((artist) => {
+    return <h1 key={artist.id}>{artist.name}</h1>;
+  })}
+  </div>
+ );
+}
+
+export default HomePage;
