@@ -16,6 +16,7 @@ const ShowcaseContent = ({
  latestRelease,
  setActiveIndex,
  setIsExpanded,
+ tracks // pass tracks as a prop
 }) => {
  const sectionVariants = {
   initial: { opacity: 0, y: 100 },
@@ -32,6 +33,9 @@ const ShowcaseContent = ({
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: 100 },
  };
+
+ // Ensure items is defined and not empty before accessing its length
+ const itemCount = items && Array.isArray(items) ? items.length : 0;
 
  return (
   <motion.div

@@ -22,6 +22,19 @@ const HomePage = () => {
   }
  }, []);
 
+ useEffect(() => {
+  try {
+   fetch("/api/tracks")
+    .then((res) => res.json())
+    .then((data) => {
+     setArtists(data.tracks);
+     setIsLoading(false);
+    });
+  } catch (error) {
+   setError(error);
+  }
+ }, []);
+
  if (isLoading) return <p>Loading...</p>;
  if (error) return <p>Error loading artists</p>;
 

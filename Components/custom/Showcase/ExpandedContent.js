@@ -12,6 +12,7 @@ import styles from "./Showcase.module.scss";
 const ShowcaseExpandedContent = ({
  activeIndex,
  albums,
+ tracks,
  items,
  setIsExpanded,
 }) => {
@@ -75,6 +76,14 @@ const ShowcaseExpandedContent = ({
      </Heading>
      {isGridVisible && <Grid items={albums} />}
     </Container>
+
+    <Container>
+     <Heading level={2} marginBottom={2} marginTop={4}>
+      Tracks
+     </Heading>
+     {isGridVisible && <Grid items={tracks} />}
+    </Container>
+
    </div>
   </section>
  );

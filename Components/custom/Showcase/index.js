@@ -13,6 +13,7 @@ const cx = classnames.bind(styles);
 const Showcase = ({ items }) => {
  const [activeIndex, setActiveIndex] = useState(0);
  const [albums, setAlbums] = useState([]);
+ const [tracks, setTracks] = useState([]);
  const [isExpanded, setIsExpanded] = useState(false);
 
  useEffect(() => {
@@ -23,6 +24,21 @@ const Showcase = ({ items }) => {
      .then((res) => res.json())
      .then((data) => {
       setAlbums(data.items);
+     });
+   } catch (error) {
+    console.log(error);
+   }
+  }
+ }, [activeIndex, items]);
+
+ useEffect(() => {
+  //console.log("use effect for showcase");
+  if (items.length > 0) {
+   try {
+    fetch(`/api/topTracks?id=${items[activeIndex].id}`)
+     .then((res) => res.json())
+     .then((data) => {
+      setTracks(data.items);
      });
    } catch (error) {
     console.log(error);
@@ -59,6 +75,7 @@ const Showcase = ({ items }) => {
       items={items}
       activeIndex={activeIndex}
       albums={albums}
+      tracks={tracks}
       setIsExpanded={setIsExpanded}
      />
     )}
